@@ -16,16 +16,17 @@ import java.io.IOException;
 @Configuration
 public class BotBeanInit {
 
-    @Value("${bot.qq}")
-    private Long qq;
-    @Value("${bot.pwd}")
-    private String pwd;
     @Value("${cacheDir")
     private String cacheDir;
     @Value("${workingDir")
     private String workingDir;
+
     @Bean
     public Bot botInit() throws IOException {
+        long qq = Long.parseLong(System.getProperty("qq"));
+        String pwd = System.getProperty("pwd");
+        System.out.println(qq);
+        System.out.println(pwd);
         ClassPathResource classPathResource = new ClassPathResource("device.json");
         Bot bot = BotFactory.INSTANCE.newBot(qq, pwd, new BotConfiguration() {{
             fileBasedDeviceInfo();
