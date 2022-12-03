@@ -8,7 +8,8 @@ public enum InstructType {
     addFood("添加食物", "addFoodInstructService"),
     removeFood("删除食物", "removeFoodInstructService"),
     foodList("查看背包", "foodListInstructService"),
-    feedList("投喂", "feedInstructService");
+    feedList("投喂", "feedInstructService"),
+    eatFoodList("吃什么", "eatFoodListInstructService");
 
     private String instruct;
     private String serviceBeanName;
