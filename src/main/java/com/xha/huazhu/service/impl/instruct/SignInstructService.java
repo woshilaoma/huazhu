@@ -66,7 +66,7 @@ public class SignInstructService implements InstructService {
                     userPackage = new UserPackage();
                 userPackage.setUserId(user.getId());
                 userPackage.setFoodId(v.get(0).getId());
-                userPackage.setCount(userPackage.getCount() == null ? 0 : userPackage.getCount() + v.size());
+                userPackage.setCount((userPackage.getCount() == null ? 0 : userPackage.getCount()) + v.size());
                 userPackageDao.save(userPackage);
                 foodNameList.append(v.get(0).getFoodName() + "*" + v.size() + ",");
             });
