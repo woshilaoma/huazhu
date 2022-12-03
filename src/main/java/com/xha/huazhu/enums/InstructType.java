@@ -3,8 +3,9 @@ package com.xha.huazhu.enums;
 public enum InstructType {
 
     sign("签到", "signInstructService"),
-    error("未知指令", "errorInstructService");
-
+    error("未知指令", "errorInstructService"),
+    addFood("添加食物", "addFoodInstructService"),
+    removeFood("删除食物", "removeFoodInstructService");
 
     private String instruct;
     private String serviceBeanName;

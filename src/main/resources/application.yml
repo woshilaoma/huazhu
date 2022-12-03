@@ -15,3 +15,5 @@ spring:
 bot:
   cacheDir: J:\tools\code\huazhu\cache
 #  workingDir: J:\tools\code\huazhu\workingDir
+  roundMax: 10
+  roundMin: 5

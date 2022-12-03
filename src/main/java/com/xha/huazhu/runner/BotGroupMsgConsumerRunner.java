@@ -52,12 +52,10 @@ public class BotGroupMsgConsumerRunner implements ApplicationRunner {
                 }
                 //#命令 参数
                 if (msg.indexOf(' ') < 1) {
-                    singleMap.get(InstructType.error.getServiceBeanName()).process(event);
                     String instruct = msg.substring(1);
                     singleMap.get(InstructType.valueOfByInstruct(instruct).getServiceBeanName()).process(event);
-                }else{
-                    singleMap.get(InstructType.error.getServiceBeanName()).process(event);
-                    String instruct = msg.substring(1,msg.indexOf(' '));
+                } else {
+                    String instruct = msg.substring(1, msg.indexOf(' '));
                     singleMap.get(InstructType.valueOfByInstruct(instruct).getServiceBeanName()).process(event);
                 }
 
@@ -66,8 +64,11 @@ public class BotGroupMsgConsumerRunner implements ApplicationRunner {
     }
 
     public static void main(String[] args) {
-        String msg = "#签到 测试一下";
+        String msg = "#签到 ";
         System.out.println(msg.substring(1, msg.indexOf(' ')));
+        System.out.println(msg.substring(msg.indexOf(' ') + 1));
+        System.out.println(msg.indexOf(' ') + 1);
+        System.out.println(msg.length());
     }
 
     @Autowired
