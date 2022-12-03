@@ -10,8 +10,11 @@ import javax.persistence.Entity;
 @ToString(callSuper = true)
 public class User extends BaseEntity {
 
-    private String qq;
+    private Long qq;
     private String userName;
     //1管理员 2普通用户
     private Integer userType;
+
+    public static final int ADMIN = 1;
+    public static final int USER = 2;
 }

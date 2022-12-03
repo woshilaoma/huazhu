@@ -1,7 +1,11 @@
 package com.xha.huazhu.bot;
 
+import com.xha.huazhu.runner.BotFirendMsgConsumerRunner;
+import com.xha.huazhu.runner.BotGroupMsgConsumerRunner;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
+import net.mamoe.mirai.event.events.FriendMessageEvent;
+import net.mamoe.mirai.event.events.GroupMessageEvent;
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,27 +20,25 @@ import java.io.IOException;
 @Configuration
 public class BotBeanInit {
 
-    @Value("${cacheDir")
+    @Value("${bot.cacheDir")
     private String cacheDir;
-    @Value("${workingDir")
-    private String workingDir;
+//    @Value("${bot.workingDir")
+//    private String workingDir;
 
     @Bean
     public Bot botInit() throws IOException {
         long qq = Long.parseLong(System.getProperty("qq"));
         String pwd = System.getProperty("pwd");
-        System.out.println(qq);
-        System.out.println(pwd);
         ClassPathResource classPathResource = new ClassPathResource("device.json");
         Bot bot = BotFactory.INSTANCE.newBot(qq, pwd, new BotConfiguration() {{
-            fileBasedDeviceInfo();
             setProtocol(MiraiProtocol.ANDROID_PAD);
             setHeartbeatStrategy(BotConfiguration.HeartbeatStrategy.STAT_HB);
-            setWorkingDir(new File(workingDir));
             setCacheDir(new File(cacheDir));
-            fileBasedDeviceInfo(classPathResource.getURL().toString());
+            fileBasedDeviceInfo(classPathResource.getFile().getPath());
         }});
         bot.login();
+        bot.getEventChannel().subscribeAlways(FriendMessageEvent.class, BotFirendMsgConsumerRunner.QUEUE::add);
+        bot.getEventChannel().subscribeAlways(GroupMessageEvent.class, BotGroupMsgConsumerRunner.QUEUE::add);
         return bot;
     }
 }

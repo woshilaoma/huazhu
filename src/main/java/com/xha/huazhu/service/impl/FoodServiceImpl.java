@@ -9,12 +9,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class FoodServiceImpl implements FoodService {
 
-    @Autowired
+
     private FoodDao foodDao;
     @Override
     public boolean addFood(String foodName) {
         Food food = new Food();
         food.setFoodName(foodName);
         return foodDao.save(food).getId()>0;
+    }
+
+    @Autowired
+    public void setFoodDao(FoodDao foodDao) {
+        this.foodDao = foodDao;
     }
 }
