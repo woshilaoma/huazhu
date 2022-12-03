@@ -64,11 +64,13 @@ public class BotGroupMsgConsumerRunner implements ApplicationRunner {
     }
 
     public static void main(String[] args) {
-        String msg = "#签到 ";
+        String msg = "#投喂 面包*";
         System.out.println(msg.substring(1, msg.indexOf(' ')));
-        System.out.println(msg.substring(msg.indexOf(' ') + 1));
-        System.out.println(msg.indexOf(' ') + 1);
-        System.out.println(msg.length());
+        msg = msg.substring(msg.indexOf(' ') + 1);
+        System.out.println(msg);
+
+        System.out.println(msg.split("\\*")[0]);
+        System.out.println(msg.split("\\*")[1]);
     }
 
     @Autowired

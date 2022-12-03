@@ -7,7 +7,8 @@ public enum InstructType {
     help("帮助", "helpInstructService"),
     addFood("添加食物", "addFoodInstructService"),
     removeFood("删除食物", "removeFoodInstructService"),
-    foodList("查询背包", "foodListInstructService");
+    foodList("查看背包", "foodListInstructService"),
+    feedList("投喂", "feedInstructService");
 
     private String instruct;
     private String serviceBeanName;

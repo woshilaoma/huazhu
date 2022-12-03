@@ -14,4 +14,6 @@ public interface FoodDao extends JpaRepository<Food,Integer> {
     @Transactional
     @Query("delete from Food where foodName = ?1")
     void deleteByFoodName(String foodName);
+
+    Food getByFoodName(String foodName);
 }
