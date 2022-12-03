@@ -19,4 +19,9 @@ public interface UserPackageDao extends JpaRepository<UserPackage,Integer> {
     @Transactional
     @Query("delete from UserPackage where foodId = ?1")
     void deleteByFoodId(Integer foodId);
+
+    @Modifying
+    @Transactional
+    @Query("delete from UserPackage where foodId not in (select id from Food)")
+    void removeNotInFood();
 }

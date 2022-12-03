@@ -26,6 +26,11 @@ public class Huazhu extends BaseEntity {
     //花猪饥饿结束时间
     private String endTime;
 
+    //花猪需要食物种类
+    private Integer foodTimes;
+
+    //花猪需要食物总数
+    private Integer foodCount;
     public static final int STATUS_NORMAL = 1;
 
     public static final int STATUS_HUNGER = 2;

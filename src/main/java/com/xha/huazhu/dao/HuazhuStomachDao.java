@@ -14,5 +14,13 @@ public interface HuazhuStomachDao extends JpaRepository<HuazhuStomach, Integer> 
     @Transactional
     @Query("delete from HuazhuStomach where foodId = ?1")
     void deleteByFoodId(Integer foodId);
+
+    HuazhuStomach findByFoodId(Integer foodId);
+
+
+    @Modifying
+    @Transactional
+    @Query("delete from HuazhuStomach where foodId not in (select id from Food)")
+    void removeNotInFood();
 }
 
