@@ -1,5 +1,8 @@
 package com.xha.huazhu.enums;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum InstructType {
 
     sign("签到", "signInstructService"),
@@ -10,7 +13,7 @@ public enum InstructType {
     foodList("查看背包", "foodListInstructService"),
     feedList("投喂", "feedInstructService"),
     eatFoodList("吃什么", "eatFoodListInstructService"),
-    test("测试", "testInstructService");
+    rank("排行榜", "rankInstructService");
 
     private String instruct;
     private String serviceBeanName;
@@ -35,5 +38,25 @@ public enum InstructType {
             }
         }
         return error;
+    }
+
+
+    public static List<InstructType> valuesList() {
+        List<InstructType> result = new ArrayList<>();
+        for (InstructType instructType : values()) {
+            if (instructType == error) {
+                continue;
+            }
+            if (instructType == addFood) {
+                continue;
+            }
+            if (instructType == removeFood) {
+                continue;
+            }
+            result.add(instructType);
+
+        }
+
+        return result;
     }
 }

@@ -25,7 +25,7 @@ public class FeedInstructService implements InstructService {
         if (huazhu.getHuazhuStatus() == Huazhu.STATUS_NORMAL) {
             event.getSubject().sendMessage(new MessageChainBuilder()
                     .append(new QuoteReply(event.getMessage()))
-                    .append("花猪不饿")
+                    .append("花猪不饿啦，谢谢漂亮姐姐们的投喂，姐姐们看看相册在售素材，有小人也有花花，有现风也有古风，可以线下啦")
                     .build()
             );
         } else {
@@ -69,7 +69,7 @@ public class FeedInstructService implements InstructService {
             if (userPackage == null) {
                 event.getSubject().sendMessage(new MessageChainBuilder()
                         .append(new QuoteReply(event.getMessage()))
-                        .append("背包不存在<" + food.getFoodName() + ">")
+                        .append("姐姐骗猪猪，姐姐包里根本没有<" + food.getFoodName() + ">，猪猪生气")
                         .build());
                 return event;
             }
@@ -84,7 +84,7 @@ public class FeedInstructService implements InstructService {
                 huazhuDao.save(huazhu);
                 event.getSubject().sendMessage(new MessageChainBuilder()
                         .append(new QuoteReply(event.getMessage()))
-                        .append("花猪不饿")
+                        .append("花猪不饿啦，谢谢漂亮姐姐们的投喂，姐姐们看看相册在售素材，有小人也有花花，有现风也有古风，可以线下啦")
                         .build()
                 );
             }
@@ -98,7 +98,7 @@ public class FeedInstructService implements InstructService {
             if (b) {
                 event.getSubject().sendMessage(new MessageChainBuilder()
                         .append(new QuoteReply(event.getMessage()))
-                        .append("花猪不吃<" + food.getFoodName() + ">")
+                        .append("花猪不吃<" + food.getFoodName() + ">，花猪是姐姐一个人的小猪猪")
                         .build());
                 return event;
             }
@@ -111,20 +111,38 @@ public class FeedInstructService implements InstructService {
                         } else {
                             userPackageDao.deleteByFoodId(food.getId());
                         }
+                        Record record = new Record();
+                        record.setFoodId(food.getId());
+                        record.setHuazhuId(huazhu.getId());
+                        record.setFoodCount(count);
+                        record.setUserId(user.getId());
+                        recordDao.save(record);
                         event.getSubject().sendMessage(new MessageChainBuilder()
-                                .append(new QuoteReply(event.getMessage())).append("花猪吃了<").append(food.getFoodName()).append(">").append(String.valueOf(count)).append("个")
+                                .append(new QuoteReply(event.getMessage())).append("谢谢小姐姐，花猪吃了你的<").append(food.getFoodName()).append(">").append(String.valueOf(count)).append("个，希望小姐姐越来越漂亮")
                                 .build());
                         huazhuStomach.setFoodCount(huazhuStomach.getFoodCount() - count);
                         huazhuStomachDao.save(huazhuStomach);
                     } else {
                         if (!Objects.equals(huazhuStomach.getFoodCount(), userPackage.getCount())) {
                             userPackage.setCount(userPackage.getCount() - huazhuStomach.getFoodCount());
+                            Record record = new Record();
+                            record.setFoodId(food.getId());
+                            record.setHuazhuId(huazhu.getId());
+                            record.setFoodCount(userPackage.getCount() - huazhuStomach.getFoodCount());
+                            record.setUserId(user.getId());
+                            recordDao.save(record);
                             userPackageDao.save(userPackage);
                         } else {
+                            Record record = new Record();
+                            record.setFoodId(food.getId());
+                            record.setHuazhuId(huazhu.getId());
+                            record.setFoodCount(count);
+                            record.setUserId(user.getId());
+                            recordDao.save(record);
                             userPackageDao.deleteByFoodId(food.getId());
                         }
                         event.getSubject().sendMessage(new MessageChainBuilder()
-                                .append(new QuoteReply(event.getMessage())).append("花猪吃了<").append(food.getFoodName()).append(">").append(String.valueOf(huazhuStomach.getFoodCount())).append("个")
+                                .append(new QuoteReply(event.getMessage())).append("谢谢小姐姐，花猪吃了你的<").append(food.getFoodName()).append(">").append(String.valueOf(huazhuStomach.getFoodCount())).append("个，希望小姐姐越来越漂亮")
                                 .build());
                         huazhuStomachDao.deleteById(huazhuStomach.getId());
                     }
@@ -150,6 +168,12 @@ public class FeedInstructService implements InstructService {
     private UserPackageDao userPackageDao;
 
 
+    private RecordDao recordDao;
+
+    @Autowired
+    public void setRecordDao(RecordDao recordDao) {
+        this.recordDao = recordDao;
+    }
 
     @Autowired
     public void setUserPackageDao(UserPackageDao userPackageDao) {

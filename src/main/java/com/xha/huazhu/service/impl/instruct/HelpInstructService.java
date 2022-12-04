@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class HelpInstructService implements InstructService {
     @Override
     public Event process(MessageEvent event) {
-        List<String> list = Arrays.stream(InstructType.values()).map(InstructType::getInstruct).collect(Collectors.toList());
+        List<String> list = InstructType.valuesList().stream().map(InstructType::getInstruct).collect(Collectors.toList());
         event.getSubject().sendMessage(new MessageChainBuilder()
                 .append(new QuoteReply(event.getMessage()))
                 .append("命令列表 <" + list.toString().substring(0, list.toString().length() - 1) + ">")

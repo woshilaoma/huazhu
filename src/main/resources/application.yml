@@ -14,6 +14,6 @@ spring:
   # logging.level.org.hibernate.type.descriptor.sql.BasicBinder=trace
 bot:
   cacheDir: J:\tools\code\huazhu\cache
-#  workingDir: J:\tools\code\huazhu\workingDir
+  device: J:\tools\code\huazhu\src\main\resources\device.json
   roundMax: 10
   roundMin: 5

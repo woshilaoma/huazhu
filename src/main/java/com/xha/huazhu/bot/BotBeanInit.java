@@ -22,8 +22,8 @@ public class BotBeanInit {
 
     @Value("${bot.cacheDir")
     private String cacheDir;
-//    @Value("${bot.workingDir")
-//    private String workingDir;
+    @Value("${bot.device")
+    private String device;
 
     @Bean
     public Bot botInit() throws IOException {
@@ -34,7 +34,7 @@ public class BotBeanInit {
             setProtocol(MiraiProtocol.ANDROID_PAD);
             setHeartbeatStrategy(BotConfiguration.HeartbeatStrategy.STAT_HB);
             setCacheDir(new File(cacheDir));
-            fileBasedDeviceInfo(classPathResource.getFile().getPath());
+            fileBasedDeviceInfo(device);
         }});
         bot.login();
         bot.getEventChannel().subscribeAlways(FriendMessageEvent.class, BotFirendMsgConsumerRunner.QUEUE::add);

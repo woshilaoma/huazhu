@@ -1,9 +1,11 @@
 package com.xha.huazhu.service.impl.instruct;
 
 import com.xha.huazhu.dao.FoodDao;
+import com.xha.huazhu.dao.HuazhuDao;
 import com.xha.huazhu.dao.HuazhuStomachDao;
 import com.xha.huazhu.dao.UserDao;
 import com.xha.huazhu.entity.Food;
+import com.xha.huazhu.entity.Huazhu;
 import com.xha.huazhu.entity.HuazhuStomach;
 import com.xha.huazhu.entity.User;
 import com.xha.huazhu.service.InstructService;
@@ -25,7 +27,6 @@ public class EatFoodListInstructService implements InstructService {
 
     @Override
     public Event process(MessageEvent event) {
-        User user = userDao.queryByQq(event.getSender().getId());
         List<HuazhuStomach> huazhuStomachList = huazhuStomachDao.findAll();
         if(huazhuStomachList.isEmpty()){
             event.getSubject().sendMessage(new MessageChainBuilder()
@@ -33,6 +34,7 @@ public class EatFoodListInstructService implements InstructService {
                     .append("花猪不饿")
                     .build()
             );
+            return event;
         }
         StringBuilder foodNameList = new StringBuilder();
         huazhuStomachList.forEach(v -> {
@@ -46,7 +48,18 @@ public class EatFoodListInstructService implements InstructService {
 
         });
         if (foodNameList.length() == 0) {
-            foodNameList.append("花猪不饿]");
+            List<Huazhu> huazhuList = huazhuDao.findAll();
+            Huazhu huazhu = huazhuList.get(0);
+            huazhu.setHuazhuStatus(Huazhu.STATUS_NORMAL);
+            huazhuDao.save(huazhu);
+            if(huazhuStomachList.isEmpty()){
+                event.getSubject().sendMessage(new MessageChainBuilder()
+                        .append(new QuoteReply(event.getMessage()))
+                        .append("花猪不饿")
+                        .build()
+                );
+            }
+            return event;
         }
         event.getSubject().sendMessage(new MessageChainBuilder()
                 .append(new QuoteReply(event.getMessage()))
@@ -57,7 +70,7 @@ public class EatFoodListInstructService implements InstructService {
     }
 
 
-    private UserDao userDao;
+    private HuazhuDao huazhuDao;
 
 
     private FoodDao foodDao;
@@ -73,10 +86,8 @@ public class EatFoodListInstructService implements InstructService {
     public void setFoodDao(FoodDao foodDao) {
         this.foodDao = foodDao;
     }
-
     @Autowired
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
+    public void setHuazhuDao(HuazhuDao huazhuDao) {
+        this.huazhuDao = huazhuDao;
     }
-
 }

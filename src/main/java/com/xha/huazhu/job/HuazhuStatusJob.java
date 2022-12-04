@@ -34,7 +34,7 @@ public class HuazhuStatusJob {
         List<Huazhu> huazhuList = huazhuDao.findAll();
         Huazhu huazhu = huazhuList.get(0);
         //生成今日饥饿次数
-        List<HuazhuJob> huazhuJobs = huazhuJobDao.findAll();
+        List<HuazhuJob> huazhuJobs = huazhuJobDao.findDay(DateUtil.formatDateStr(new Date(),DateUtil.YYYY_MM_DD));
         if (huazhuJobs.isEmpty()) {
             insertHuazhuJob(huazhu);
         }
@@ -71,7 +71,7 @@ public class HuazhuStatusJob {
             });
             ContactList<Group> groupList = bot.getGroups();
             groupList.forEach(e -> {
-                String msg = "花猪饿了 花猪想吃 <" + foodNameList.substring(0, foodNameList.length() - 1) + ">";
+                String msg = "姐姐姐姐，花猪饿了，花猪饿了，花猪要吃 <" + foodNameList.substring(0, foodNameList.length() - 1) + ">，求求快点喂喂猪猪";
                 e.sendMessage(msg);
             });
         }

@@ -37,7 +37,7 @@ public class SignInstructService implements InstructService {
         if (count > 0) {
             event.getSubject().sendMessage(new MessageChainBuilder()
                     .append(new QuoteReply(event.getMessage()))
-                    .append("今日已签到")
+                    .append("姐姐今天已经看过小花猪啦，明天别忘了来看看猪猪呀")
                     .build()
             );
         } else {
@@ -72,7 +72,7 @@ public class SignInstructService implements InstructService {
             });
             event.getSubject().sendMessage(new MessageChainBuilder()
                     .append(new QuoteReply(event.getMessage()))
-                    .append("签到成功 获得食物<" + foodNameList.substring(0, foodNameList.length() - 1) + ">")
+                    .append("姐姐又来签到看小花猪啦，祝姐姐今天万事顺利呀。\r\n获得食物<" + foodNameList.substring(0, foodNameList.length() - 1) + ">")
                     .build()
             );
 
