@@ -47,7 +47,12 @@ public class FoodListInstructService implements InstructService {
 
         });
         if (foodNameList.length() == 0) {
-            foodNameList.append("背包为空]");
+            event.getSubject().sendMessage(new MessageChainBuilder()
+                    .append(new QuoteReply(event.getMessage()))
+                    .append("背包空空，猪猪饿饿")
+                    .build()
+            );
+            return event;
         }
         event.getSubject().sendMessage(new MessageChainBuilder()
                 .append(new QuoteReply(event.getMessage()))

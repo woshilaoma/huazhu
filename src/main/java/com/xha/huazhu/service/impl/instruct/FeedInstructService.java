@@ -75,7 +75,7 @@ public class FeedInstructService implements InstructService {
             }
             if (userPackage.getCount() < count) {
                 event.getSubject().sendMessage(new MessageChainBuilder()
-                        .append(new QuoteReply(event.getMessage())).append("背包 <").append(food.getFoodName()).append("> 数量不足")
+                        .append(new QuoteReply(event.getMessage())).append("姐姐姐姐，背包<").append(food.getFoodName()).append(">不全啦")
                         .build());
                 return event;
             }
