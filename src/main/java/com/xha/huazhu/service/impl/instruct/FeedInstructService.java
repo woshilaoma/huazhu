@@ -104,6 +104,7 @@ public class FeedInstructService implements InstructService {
             }
             for (HuazhuStomach huazhuStomach : huazhuStomachList) {
                 if (Objects.equals(huazhuStomach.getFoodId(), food.getId())) {
+                    //当投喂数量小于花猪需要数量时，则扣减花猪需要食物并且减少背包
                     if (count < huazhuStomach.getFoodCount()) {
                         if (count != userPackage.getCount()) {
                             userPackage.setCount(userPackage.getCount() - count);
@@ -123,11 +124,10 @@ public class FeedInstructService implements InstructService {
                         huazhuStomach.setFoodCount(huazhuStomach.getFoodCount() - count);
                         huazhuStomachDao.save(huazhuStomach);
                     } else {
-                        if (!Objects.equals(huazhuStomach.getFoodCount(), userPackage.getCount())) {
+                        if (userPackage.getCount() - huazhuStomach.getFoodCount() != 0) {
                             userPackage.setCount(userPackage.getCount() - huazhuStomach.getFoodCount());
                             userPackageDao.save(userPackage);
                         } else {
-
                             userPackageDao.deleteByFoodId(food.getId());
                         }
                         Record record = new Record();
