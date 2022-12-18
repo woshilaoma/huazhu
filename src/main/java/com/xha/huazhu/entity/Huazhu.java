@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import java.util.Date;
 
 @Entity
 @Data
@@ -21,10 +22,10 @@ public class Huazhu extends BaseEntity {
     private Integer times;
 
     //花猪饥饿起始时间
-    private String startTime;
+    private Date startTime;
 
     //花猪饥饿结束时间
-    private String endTime;
+    private Date endTime;
 
     //花猪需要食物种类
     private Integer foodTimes;

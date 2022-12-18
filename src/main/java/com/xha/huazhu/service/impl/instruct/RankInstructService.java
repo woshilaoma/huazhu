@@ -22,7 +22,7 @@ public class RankInstructService implements InstructService {
 
     @Override
     public Event process(MessageEvent event) {
-        List<Record> records = recordDao.findRank(5);
+        List<Record> records = recordDao.findRank(10);
         List<String> userNameList = new ArrayList<>();
         records.forEach(e -> {
             Optional<User> user = userDao.findById(e.getUserId());

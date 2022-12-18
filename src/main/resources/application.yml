@@ -9,11 +9,13 @@ spring:
         format_sql: true
     generate-ddl: true
     hibernate.ddl-auto: update
-    show-sql: false
+    show-sql: true
     open-in-view: true
+
   # logging.level.org.hibernate.type.descriptor.sql.BasicBinder=trace
 bot:
   cacheDir: J:\tools\code\huazhu\cache
   device: J:\tools\code\huazhu\src\main\resources\device.json
   roundMax: 10
   roundMin: 5
+

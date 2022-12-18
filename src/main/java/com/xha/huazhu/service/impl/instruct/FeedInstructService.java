@@ -125,22 +125,17 @@ public class FeedInstructService implements InstructService {
                     } else {
                         if (!Objects.equals(huazhuStomach.getFoodCount(), userPackage.getCount())) {
                             userPackage.setCount(userPackage.getCount() - huazhuStomach.getFoodCount());
-                            Record record = new Record();
-                            record.setFoodId(food.getId());
-                            record.setHuazhuId(huazhu.getId());
-                            record.setFoodCount(userPackage.getCount() - huazhuStomach.getFoodCount());
-                            record.setUserId(user.getId());
-                            recordDao.save(record);
                             userPackageDao.save(userPackage);
                         } else {
-                            Record record = new Record();
-                            record.setFoodId(food.getId());
-                            record.setHuazhuId(huazhu.getId());
-                            record.setFoodCount(count);
-                            record.setUserId(user.getId());
-                            recordDao.save(record);
+
                             userPackageDao.deleteByFoodId(food.getId());
                         }
+                        Record record = new Record();
+                        record.setFoodId(food.getId());
+                        record.setHuazhuId(huazhu.getId());
+                        record.setFoodCount(huazhuStomach.getFoodCount());
+                        record.setUserId(user.getId());
+                        recordDao.save(record);
                         event.getSubject().sendMessage(new MessageChainBuilder()
                                 .append(new QuoteReply(event.getMessage())).append("谢谢小姐姐，花猪吃了你的<").append(food.getFoodName()).append(">").append(String.valueOf(huazhuStomach.getFoodCount())).append("个，希望小姐姐越来越漂亮")
                                 .build());

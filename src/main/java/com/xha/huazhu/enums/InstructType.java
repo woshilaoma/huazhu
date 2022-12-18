@@ -13,7 +13,8 @@ public enum InstructType {
     foodList("查看背包", "foodListInstructService"),
     feedList("投喂", "feedInstructService"),
     eatFoodList("吃什么", "eatFoodListInstructService"),
-    rank("排行榜", "rankInstructService");
+    rank("排行榜", "rankInstructService"),
+    test("测试", "testInstructService");
 
     private String instruct;
     private String serviceBeanName;
@@ -51,6 +52,8 @@ public enum InstructType {
                 continue;
             }
             if (instructType == removeFood) {
+                continue;
+            } if (instructType == test) {
                 continue;
             }
             result.add(instructType);

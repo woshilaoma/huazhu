@@ -15,7 +15,7 @@ public interface HuazhuJobDao extends JpaRepository<HuazhuJob, Integer> {
 
     List<HuazhuJob> findAllByOrderByEventTimeAsc();
 
-    @Query("from HuazhuJob where createTime like '%:formatDateStr'")
-    List<HuazhuJob> findDay(@Param("formatDateStr") String formatDateStr);
+    @Query("from HuazhuJob where createTime like ?1")
+    List<HuazhuJob> findDay( String formatDateStr);
 }
 

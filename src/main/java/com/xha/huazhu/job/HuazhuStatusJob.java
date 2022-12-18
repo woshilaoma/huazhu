@@ -34,7 +34,7 @@ public class HuazhuStatusJob {
         List<Huazhu> huazhuList = huazhuDao.findAll();
         Huazhu huazhu = huazhuList.get(0);
         //生成今日饥饿次数
-        List<HuazhuJob> huazhuJobs = huazhuJobDao.findDay(DateUtil.formatDateStr(new Date(),DateUtil.YYYY_MM_DD));
+        List<HuazhuJob> huazhuJobs = huazhuJobDao.findDay(DateUtil.formatDateStr(new Date(),DateUtil.YYYY_MM_DD)+"%");
         if (huazhuJobs.isEmpty()) {
             insertHuazhuJob(huazhu);
         }
@@ -103,11 +103,9 @@ public class HuazhuStatusJob {
     }
 
     private void insertHuazhuJob(Huazhu huazhu) {
-        String startTimeStr = huazhu.getStartTime();
-        String endTimeStr = huazhu.getEndTime();
         Integer times = huazhu.getTimes();
-        Date startTime = DateUtil.formatDate(startTimeStr, DateUtil.HH_MM_SS);
-        Date endTime = DateUtil.formatDate(endTimeStr, DateUtil.HH_MM_SS);
+        Date startTime = huazhu.getStartTime();
+        Date endTime = huazhu.getEndTime();
         Random random = new Random();
         for (int i = 0; i < times; i++) {
             HuazhuJob huazhuJob = new HuazhuJob();

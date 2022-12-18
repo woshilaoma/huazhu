@@ -56,7 +56,7 @@ public class FoodListInstructService implements InstructService {
         }
         event.getSubject().sendMessage(new MessageChainBuilder()
                 .append(new QuoteReply(event.getMessage()))
-                .append("背包包含 <" + foodNameList.substring(0, foodNameList.length() - 1) + ">")
+                .append("让猪猪看看，姐姐背包里有<" + foodNameList.substring(0, foodNameList.length() - 1) + ">")
                 .build()
         );
         return event;
